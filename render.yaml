@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: somewhere-website
+    name: raster-website
     env: python
     region: oregon
     plan: free
