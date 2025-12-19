@@ -790,9 +790,20 @@ section {
     }
 }
 
+@media (max-width: 768px) {
+    .hero-title {
+        letter-spacing: 0.15em; /* Reduce spacing on tablets */
+    }
+}
+
 @media (max-width: 480px) {
     :root {
         font-size: 14px;
+    }
+    
+    .hero-title {
+        letter-spacing: 0.1em; /* Tighter spacing on mobile */
+        font-size: clamp(2rem, 8vw, 3rem); /* Smaller on mobile */
     }
 }
 
