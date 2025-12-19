@@ -885,6 +885,23 @@ section {
     transform: rotate(90deg);
 }
 
+.modal-image-container {
+    width: 100%;
+    max-height: 400px;
+    overflow: hidden;
+    border-top: 1px solid rgba(255, 0, 51, 0.3);
+    border-bottom: 1px solid rgba(255, 0, 51, 0.3);
+    background: var(--color-black);
+}
+
+.modal-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    max-height: 400px;
+}
+
 .modal-body {
     padding: var(--spacing-md);
 }
@@ -996,6 +1013,14 @@ section {
     .modal-body,
     .modal-footer {
         padding: var(--spacing-sm);
+    }
+    
+    .modal-image-container {
+        max-height: 250px;
+    }
+    
+    .modal-image {
+        max-height: 250px;
     }
 }
 

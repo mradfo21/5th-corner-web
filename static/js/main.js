@@ -145,6 +145,7 @@
         const modal = document.getElementById('choiceModal');
         const modalTitle = document.getElementById('modalTitle');
         const modalDescription = document.getElementById('modalDescription');
+        const modalImage = document.getElementById('modalImage');
         const modalClose = document.querySelector('.modal-close');
         const modalOverlay = document.querySelector('.modal-overlay');
         
@@ -156,8 +157,15 @@
                 const title = this.getAttribute('data-choice-title');
                 const description = this.getAttribute('data-choice-description');
                 
+                // Extract background image URL from style attribute
+                const style = this.getAttribute('style');
+                const urlMatch = style.match(/url\(['"]?([^'"]+)['"]?\)/);
+                const imageUrl = urlMatch ? urlMatch[1] : '';
+                
                 modalTitle.textContent = title;
                 modalDescription.textContent = description;
+                modalImage.src = imageUrl;
+                modalImage.alt = title;
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
             });
