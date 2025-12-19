@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero">
+    <!-- Hero background GIF -->
+    <div class="hero-bg-gif"></div>
+    
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title glitch" data-text="R.A.S.T.E.R.">R.A.S.T.E.R.</h1>
+            <p class="hero-subtitle">An Analog Horror Story</p>
+            <p class="hero-tagline">1993. <span class="redacted">You are recording.</span><br>The world does not care if <span class="redacted">you survive</span>.</p>
+            <p class="hero-system-hint">Recording in progress.</p>
+            
+            <a href="{{ discord_invite }}" target="_blank" rel="noopener noreferrer" class="cta-button cta-primary">
+                <span class="cta-icon">▶</span> JOIN DISCORD TO PLAY
+            </a>
+            
+            <p class="hero-note">Every playthrough is unique.<br>Free to play. No download required.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Section (MOVED UP - Shows immediately after hero) -->
+<section class="gallery">
+    <div class="container">
+        <h2 class="section-title">Recovered Footage</h2>
+        <p class="gallery-subtitle">Frames extracted from previous investigations</p>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <div class="vhs-frame">
+                    <img src="{{ url_for('static', filename='images/examples/example1.gif') }}" alt="The facility appears abandoned" class="gallery-image" loading="lazy">
+                    <p class="gallery-caption">The facility appears abandoned.</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <div class="vhs-frame">
+                    <img src="{{ url_for('static', filename='images/examples/example2.gif') }}" alt="Something is moving behind the fence" class="gallery-image" loading="lazy">
+                    <p class="gallery-caption">Something is moving behind the fence.</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <div class="vhs-frame">
+                    <img src="{{ url_for('static', filename='images/examples/example3.gif') }}" alt="The guard's flashlight sweeps closer" class="gallery-image" loading="lazy">
+                    <p class="gallery-caption">The guard's flashlight sweeps closer.</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <div class="vhs-frame">
+                    <img src="{{ url_for('static', filename='images/examples/example4.gif') }}" alt="The tape cuts out here" class="gallery-image" loading="lazy">
+                    <p class="gallery-caption">The tape cuts out here.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about">
+    <div class="container">
+        <div class="section-content">
+            <h2 class="section-title">Your Choices Are Recorded</h2>
+            
+            <div class="description">
+                <p class="description-text">
+                    <strong>R.A.S.T.E.R.</strong> is an interactive analog horror experience where every decision is recorded.
+                    You play as an <span class="redacted">investigative journalist</span> entering a <span class="redacted">classified desert facility</span> in 1993.
+                    The story reacts to what you do — and the tape never lies.
+                </p>
+            </div>
+            
+            <div class="choice-grid">
+                <div class="choice-card">
+                    <p class="choice-label">Choose cautiously.</p>
+                    <p class="choice-desc" data-text="Survival demands careful planning.">&nbsp;</p>
+                </div>
+                <div class="choice-card">
+                    <p class="choice-label">Choose boldly.</p>
+                    <p class="choice-desc" data-text="Risk brings revelation.">&nbsp;</p>
+                </div>
+                <div class="choice-card">
+                    <p class="choice-label">Or write your own action.</p>
+                    <p class="choice-desc" data-text="The system remembers everything.">&nbsp;</p>
+                </div>
+            </div>
+            
+            <div class="warning">
+                <p>Every choice changes the world.<br>
+                Some choices leave scars.<br>
+                Some end the tape.</p>
+                <p class="warning-emphasis">There is no reload.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features">
+    <div class="container">
+        <h2 class="section-title">Why This Is Different</h2>
+        
+        <div class="feature-grid">
+            <div class="feature-item">
+                <span class="feature-icon">🎥</span>
+                <p class="feature-text">Every frame is generated in real time.</p>
+            </div>
+            
+            <div class="feature-item">
+                <span class="feature-icon">📼</span>
+                <p class="feature-text">Your entire playthrough is recorded to VHS.</p>
+            </div>
+            
+            <div class="feature-item">
+                <span class="feature-icon">💀</span>
+                <p class="feature-text">Death is permanent.</p>
+            </div>
+            
+            <div class="feature-item">
+                <span class="feature-icon">🕰️</span>
+                <p class="feature-text">The world moves even when you hesitate.</p>
+            </div>
+            
+            <div class="feature-item">
+                <span class="feature-icon">🧠</span>
+                <p class="feature-text">The system remembers what you've done.</p>
+            </div>
+            
+            <div class="feature-item">
+                <span class="feature-icon">🎲</span>
+                <p class="feature-text">Luck can save or doom you.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Showcase (Optional: Uncomment when you have a showcase GIF) -->
+<!--
+<section class="showcase">
+    <div class="container">
+        <div class="showcase-frame">
+            <img src="{{ url_for('static', filename='images/showcase.gif') }}" alt="Live gameplay footage" class="showcase-gif">
+            <p class="showcase-caption">Every frame. Every choice. Every consequence.</p>
+        </div>
+    </div>
+</section>
+-->
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2 class="cta-title">The only way to play is through Discord.</h2>
+            <p class="cta-description">
+                No install.<br>
+                No tutorial.<br>
+                Just the tape.
+            </p>
+            
+            <a href="{{ discord_invite }}" target="_blank" rel="noopener noreferrer" class="cta-button cta-primary cta-large">
+                <span class="cta-icon">▶</span> JOIN DISCORD
+            </a>
+            
+            <p class="cta-note">Free to play. Start your investigation now.</p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+

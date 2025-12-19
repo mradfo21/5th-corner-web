@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Discord Invite Test</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #0A0A0A;
+            color: #E0E0E0;
+            padding: 40px;
+            line-height: 1.8;
+        }
+        a {
+            color: #FF0033;
+            font-size: 20px;
+            text-decoration: none;
+            border: 2px solid #FF0033;
+            padding: 10px 20px;
+            display: inline-block;
+            margin: 20px 0;
+        }
+        a:hover {
+            background: #FF0033;
+            color: #000;
+        }
+        .info {
+            background: #1A1A1A;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 3px solid #FF0033;
+        }
+    </style>
+</head>
+<body>
+    <h1>Discord Invite Test Page</h1>
+    
+    <div class="info">
+        <p><strong>Current invite in .env:</strong> https://discord.gg/nZCBjWsM</p>
+        <p><strong>Test the link below:</strong></p>
+    </div>
+    
+    <a href="https://discord.gg/nZCBjWsM" target="_blank">
+        TEST DISCORD INVITE
+    </a>
+    
+    <div class="info">
+        <h3>What should happen:</h3>
+        <p>✓ Opens Discord in new tab<br>
+        ✓ Shows server name and join button<br>
+        ✓ Or opens Discord app if installed</p>
+        
+        <h3>If it doesn't work:</h3>
+        <p>The invite is expired, invalid, or for wrong server</p>
+        
+        <h3>Create a NEW permanent invite:</h3>
+        <ol>
+            <li>Open your Discord server (for R.A.S.T.E.R.)</li>
+            <li>Right-click any channel → "Invite People"</li>
+            <li>Click "Edit invite link" at bottom</li>
+            <li>Set "Expire after" → <strong>Never</strong></li>
+            <li>Set "Max number of uses" → <strong>No limit</strong></li>
+            <li>Copy the invite link</li>
+            <li>Update .env file with new link</li>
+            <li>Restart Flask: python app.py</li>
+        </ol>
+    </div>
+    
+    <div class="info">
+        <h3>Common issues:</h3>
+        <p>
+        ❌ Invite expired (default is 7 days)<br>
+        ❌ Invite is for different server<br>
+        ❌ Server was deleted<br>
+        ❌ You don't have permission to create invites
+        </p>
+    </div>
+    
+</body>
+</html>
+

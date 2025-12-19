@@ -1,0 +1,101 @@
+R.A.S.T.E.R. - HERO BACKGROUND GIF SETUP
+========================================
+
+STEP 1: PUT YOUR GIF HERE
+--------------------------
+File location:
+  static/images/hero.gif
+
+Recommended content:
+  - Subtle atmospheric footage
+  - Low contrast (will be 15% opacity)
+  - Slow movement or looping scene
+  - 5-10 seconds duration
+  - Example: Facility exterior with flickering lights
+  - Example: Slow camera pan across empty corridor
+  - Example: Desert landscape with heat waves
+
+File size:
+  - Keep under 3MB for fast loading
+  - Lower quality is fine (will be subtle anyway)
+
+
+STEP 2: ENABLE IN CODE
+-----------------------
+Already configured! Just needs to be uncommented.
+
+Location: templates/index.html (line 7-8)
+
+CURRENT (disabled):
+  <!-- <div class="hero-bg-gif"></div> -->
+
+CHANGE TO (enabled):
+  <div class="hero-bg-gif"></div>
+
+
+STEP 3: WHAT IT LOOKS LIKE
+---------------------------
+When enabled:
+  - GIF plays behind the R.A.S.T.E.R. title
+  - Very subtle (15% opacity)
+  - Covers full hero section
+  - Doesn't distract from text
+  - Creates atmospheric depth
+  - Reinforces VHS/analog aesthetic
+
+
+CSS ALREADY CONFIGURED
+-----------------------
+Location: static/css/style.css (lines 236-246)
+
+.hero-bg-gif {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/static/images/hero.gif');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.15;    ← Very subtle!
+    z-index: 0;
+    pointer-events: none;
+}
+
+
+QUICK ENABLE
+------------
+Want me to enable it now? I can uncomment the line for you.
+Just say "enable hero background" and I'll do it!
+
+
+TESTING
+-------
+1. Put hero.gif in static/images/
+2. Enable the code (uncomment line)
+3. Refresh http://localhost:5000
+4. Hero section will have subtle animated background
+5. If too subtle: increase opacity in CSS (0.15 → 0.25)
+6. If too strong: decrease opacity (0.15 → 0.08)
+
+
+OPTIONAL: ADJUST OPACITY
+-------------------------
+Edit static/css/style.css, find .hero-bg-gif, change:
+  opacity: 0.15;  ← Default (very subtle)
+  opacity: 0.25;  ← More visible
+  opacity: 0.08;  ← Barely there
+
+
+TIPS
+----
+- Test with different GIFs to find the right mood
+- Darker GIFs work better (more atmospheric)
+- High-contrast GIFs may be distracting
+- Static noise/grain GIFs work great
+- Slow movement > fast movement
+
+
+========================================
+Ready to enable? Just add hero.gif and uncomment the line!
+

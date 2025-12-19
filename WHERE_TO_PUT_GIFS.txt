@@ -1,0 +1,102 @@
+R.A.S.T.E.R. - WHERE TO PUT YOUR GIFS
+====================================
+
+SERVER STATUS: ✓ RUNNING
+URL: http://localhost:5000
+GIF SUPPORT: ✓ ENABLED
+
+====================================
+STEP 1: PUT YOUR 4 GALLERY GIFS HERE
+====================================
+
+Copy your gameplay GIFs to these EXACT locations:
+
+static/images/examples/example1.gif
+static/images/examples/example2.gif
+static/images/examples/example3.gif
+static/images/examples/example4.gif
+
+These will show in the "Recovered Footage" gallery section.
+
+RECOMMENDED CONTENT:
+- example1.gif = Establishing shot (facility exterior)
+- example2.gif = Exploration (moving through environment)
+- example3.gif = Tense moment (danger approaching)
+- example4.gif = Climactic moment (encounter/death)
+
+====================================
+STEP 2: REFRESH YOUR BROWSER
+====================================
+
+After copying the GIFs:
+1. Go to http://localhost:5000
+2. Hard refresh (Ctrl+Shift+R or Cmd+Shift+R)
+3. Scroll to "Recovered Footage" section
+4. Your GIFs will be playing with VHS frame effect
+
+====================================
+OPTIONAL: ADDITIONAL GIFS
+====================================
+
+Hero Background (subtle, behind title):
+static/images/hero.gif
+
+Featured Showcase (big center GIF):
+static/images/showcase.gif
+
+To enable these:
+1. Put GIF files in locations above
+2. Edit templates/index.html
+3. Uncomment the relevant sections
+
+====================================
+CURRENT PLACEHOLDER FILES
+====================================
+
+Right now you have:
+static/images/examples/example1.png
+static/images/examples/example2.png
+static/images/examples/example3.png
+static/images/examples/example4.png
+
+These will be replaced by your GIFs when you copy them.
+(Or you can keep both - .gif will be used first)
+
+====================================
+GIF REQUIREMENTS
+====================================
+
+Format:      .gif
+Size:        800x600px recommended (any size works)
+Duration:    2-5 seconds recommended
+File Size:   < 5MB each (for fast loading)
+Loop:        Yes (GIFs loop automatically)
+
+====================================
+HOW TO CREATE GIFS FROM YOUR BOT
+====================================
+
+Option 1: Use existing tool
+- ffmpeg, GIMP, Photoshop, or online tools
+
+Option 2: From video clips
+ffmpeg -i gameplay.mp4 -t 3 -vf "fps=10,scale=800:-1" output.gif
+
+Option 3: From image sequence
+ffmpeg -framerate 2 -i frame_%03d.png output.gif
+
+====================================
+TESTING
+====================================
+
+1. Copy ONE GIF as example1.gif
+2. Refresh http://localhost:5000
+3. Scroll to gallery
+4. Verify it plays with VHS frame
+5. Copy remaining 3 GIFs
+6. Refresh again
+
+====================================
+
+Questions? The site is live and ready for GIFs!
+

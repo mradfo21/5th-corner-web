@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO Meta Tags -->
+    <title>{% block title %}R.A.S.T.E.R. - An Analog Horror Story{% endblock %}</title>
+    <meta name="description" content="An interactive analog horror experience where every decision is recorded. 1993. You are recording. The world does not care if you survive.">
+    <meta name="keywords" content="analog horror, AI game, interactive fiction, found footage, VHS horror, Discord game">
+    <meta name="author" content="R.A.S.T.E.R.">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:title" content="R.A.S.T.E.R. - An Analog Horror Story">
+    <meta property="og:description" content="1993. You are recording. The world does not care if you survive.">
+    <meta property="og:image" content="{{ url_for('static', filename='images/og-image.png', _external=True) }}">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="R.A.S.T.E.R. - An Analog Horror Story">
+    <meta name="twitter:description" content="1993. You are recording. The world does not care if you survive.">
+    <meta name="twitter:image" content="{{ url_for('static', filename='images/og-image.png', _external=True) }}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Institutional / SCP fonts: OCR, DIN, Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Share+Tech+Mono&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Scanlines overlay for VHS effect -->
+    <div class="scanlines"></div>
+    
+    <!-- Main content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    <span class="glitch" data-text="R.A.S.T.E.R.">R.A.S.T.E.R.</span> &copy; 2025
+                </p>
+                <p class="footer-subtext">
+                    Recovered from damaged magnetic tape.
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
+
