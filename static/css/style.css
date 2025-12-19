@@ -892,14 +892,25 @@ section {
     border-top: 1px solid rgba(255, 0, 51, 0.3);
     border-bottom: 1px solid rgba(255, 0, 51, 0.3);
     background: var(--color-black);
+    position: relative;
 }
 
 .modal-image {
     width: 100%;
     height: auto;
     display: block;
-    object-fit: cover;
-    max-height: 400px;
+    object-fit: contain;
+    min-height: 400px;
+    animation: imagePan 10s ease-in-out infinite alternate;
+}
+
+@keyframes imagePan {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-15%);
+    }
 }
 
 .modal-body {
@@ -1020,7 +1031,7 @@ section {
     }
     
     .modal-image {
-        max-height: 250px;
+        min-height: 250px;
     }
 }
 
@@ -1039,6 +1050,11 @@ section {
     
     .scanlines {
         animation: none;
+    }
+    
+    .modal-image {
+        animation: none !important;
+        transform: translateY(0) !important;
     }
 }
 
