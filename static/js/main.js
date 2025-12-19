@@ -139,6 +139,55 @@
     }
     
     /**
+     * Handle choice card modal
+     */
+    function initChoiceModal() {
+        const modal = document.getElementById('choiceModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalClose = document.querySelector('.modal-close');
+        const modalOverlay = document.querySelector('.modal-overlay');
+        
+        if (!modal) return;
+        
+        // Open modal when choice card is clicked
+        document.querySelectorAll('.choice-card.clickable').forEach(card => {
+            card.addEventListener('click', function(e) {
+                const title = this.getAttribute('data-choice-title');
+                const description = this.getAttribute('data-choice-description');
+                
+                modalTitle.textContent = title;
+                modalDescription.textContent = description;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        // Close modal function
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Close on X button
+        if (modalClose) {
+            modalClose.addEventListener('click', closeModal);
+        }
+        
+        // Close on overlay click
+        if (modalOverlay) {
+            modalOverlay.addEventListener('click', closeModal);
+        }
+        
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+    }
+    
+    /**
      * Initialize all functions when DOM is ready
      */
     function init() {
@@ -149,6 +198,7 @@
         initRandomGlitch();
         initScrollAnimations();
         initImageErrorHandling();
+        initChoiceModal();
         
         console.log('R.A.S.T.E.R. initialized');
     }

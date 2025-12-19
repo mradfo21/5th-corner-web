@@ -69,21 +69,30 @@
             </div>
             
             <div class="choice-grid">
-                <div class="choice-card" style="background-image: url('{{ url_for('static', filename='images/choices/choice1.png') }}');">
+                <div class="choice-card clickable" 
+                     style="background-image: url('{{ url_for('static', filename='images/choices/choice1.png') }}');"
+                     data-choice-title="Choose Cautiously"
+                     data-choice-description="Every move is calculated. Every sound is analyzed. You take time to observe patterns, listen for footsteps, and wait for the right moment. The facility rewards patience — but hesitation has its own cost. Some doors close forever if you wait too long.">
                     <div class="choice-overlay"></div>
                     <div class="choice-content">
                         <p class="choice-label">Choose cautiously.</p>
                         <p class="choice-desc" data-text="Survival demands careful planning.">&nbsp;</p>
                     </div>
                 </div>
-                <div class="choice-card" style="background-image: url('{{ url_for('static', filename='images/choices/choice2.png') }}');">
+                <div class="choice-card clickable" 
+                     style="background-image: url('{{ url_for('static', filename='images/choices/choice2.png') }}');"
+                     data-choice-title="Choose Boldly"
+                     data-choice-description="Speed over stealth. Action over observation. You push forward, trusting instinct and momentum. The facility reveals secrets to those who dare — but recklessness leaves evidence. Every bold move is recorded, and the tape remembers what you disturb.">
                     <div class="choice-overlay"></div>
                     <div class="choice-content">
                         <p class="choice-label">Choose boldly.</p>
                         <p class="choice-desc" data-text="Risk brings revelation.">&nbsp;</p>
                     </div>
                 </div>
-                <div class="choice-card" style="background-image: url('{{ url_for('static', filename='images/choices/choice3.png') }}');">
+                <div class="choice-card clickable" 
+                     style="background-image: url('{{ url_for('static', filename='images/choices/choice3.png') }}');"
+                     data-choice-title="Choose Free Will"
+                     data-choice-description="The AI doesn't limit you to preset options. Type your own actions in natural language: 'climb through the vent,' 'throw a rock as a distraction,' 'lie to the guard.' The system responds to creativity — and punishes contradiction. Every word you write becomes part of the permanent record.">
                     <div class="choice-overlay"></div>
                     <div class="choice-content">
                         <p class="choice-label">Choose Free Will.</p>
@@ -172,6 +181,23 @@
         </div>
     </div>
 </section>
+
+<!-- Choice Details Modal -->
+<div id="choiceModal" class="modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalTitle" class="modal-title"></h3>
+            <button class="modal-close" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p id="modalDescription" class="modal-description"></p>
+        </div>
+        <div class="modal-footer">
+            <p class="modal-hint">Click anywhere to close</p>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
 
