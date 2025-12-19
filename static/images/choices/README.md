@@ -4,13 +4,13 @@
 
 Simply replace these files with your gameplay screenshots:
 
-- `choice1.jpg` - Cautious choice gameplay
-- `choice2.jpg` - Bold choice gameplay  
-- `choice3.jpg` - Free will/custom action gameplay
+- `choice1.png` - Cautious choice gameplay
+- `choice2.png` - Bold choice gameplay  
+- `choice3.png` - Free will/custom action gameplay
 
 ## Image Specs
 
-- **Format**: JPG or PNG
+- **Format**: PNG or JPG
 - **Recommended size**: 800x450px (16:9 aspect ratio)
 - **Max file size**: Keep under 500KB for fast loading
 
