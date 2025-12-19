@@ -405,14 +405,14 @@ section {
 
 .choice-card {
     position: relative;
-    min-height: 280px;
+    min-height: 320px;
     overflow: hidden;
     border: 1px solid rgba(255, 0, 51, 0.3);
     transition: all 0.3s ease;
     
     /* Background image styling */
     background-size: cover;
-    background-position: center;
+    background-position: center center;
     background-repeat: no-repeat;
 }
 
