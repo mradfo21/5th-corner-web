@@ -300,9 +300,9 @@ A: Yes! Fully responsive with touch-friendly controls.
 - Local: `http://localhost:5000/admin`
 
 ### **Game API:**
-- Current: `https://fiveth-corner-operations.onrender.com`
-- Health check: `https://fiveth-corner-operations.onrender.com/api/health`
-- Direct dashboard: `https://fiveth-corner-operations.onrender.com/admin`
+- Current: `https://fiveth-corner-dev-1a00.onrender.com`
+- Health check: `https://fiveth-corner-dev-1a00.onrender.com/api/health`
+- Direct dashboard: `https://fiveth-corner-dev-1a00.onrender.com/admin`
 
 ---
 
