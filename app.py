@@ -18,6 +18,9 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-key-change-in-produ
 # Discord invite link (set as environment variable)
 DISCORD_INVITE = os.environ.get('DISCORD_INVITE', 'https://discord.gg/YOUR_INVITE_CODE')
 
+# Game API URL for admin dashboard
+GAME_API_URL = os.environ.get('GAME_API_URL', 'https://fiveth-corner-operations.onrender.com')
+
 # Bot integration (for future phases)
 BOT_ROOT = Path(__file__).parent.parent
 STATE_FILE = BOT_ROOT / "state.json"
@@ -28,6 +31,15 @@ CACHE_DIR = BOT_ROOT / "cache"
 def home():
     """Main landing page"""
     return render_template('index.html', discord_invite=DISCORD_INVITE)
+
+
+@app.route('/admin')
+@app.route('/operations')
+def admin_dashboard():
+    """Admin dashboard - embedded game operations monitoring"""
+    return render_template('admin.html', 
+                         game_api_url=GAME_API_URL,
+                         discord_invite=DISCORD_INVITE)
 
 
 @app.route('/health')

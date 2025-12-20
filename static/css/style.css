@@ -760,6 +760,40 @@ section {
     font-style: italic;
 }
 
+.footer-access {
+    margin-top: 20px;
+    font-size: 0.65rem;
+    opacity: 0.3;
+    transition: opacity 0.3s ease;
+}
+
+.footer-access:hover {
+    opacity: 0.8;
+}
+
+.access-link {
+    font-family: var(--font-ocr);
+    color: rgba(220, 20, 60, 0.7);
+    text-decoration: none;
+    letter-spacing: 0.2em;
+    padding: 4px 8px;
+    border: 1px solid rgba(220, 20, 60, 0.3);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.access-link:hover {
+    color: var(--color-blood-red);
+    border-color: var(--color-blood-red);
+    box-shadow: 0 0 8px rgba(220, 20, 60, 0.3);
+    background: rgba(220, 20, 60, 0.05);
+}
+
+.access-link:active {
+    transform: scale(0.98);
+}
+
 /* ========================================
    REDACTION EFFECT (SCP STYLE)
    ======================================== */

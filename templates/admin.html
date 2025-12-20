@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPERATIONS - R.A.S.T.E.R.</title>
+    
+    <!-- Fonts (matching main site) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Share+Tech+Mono&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === Reset & Base === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-blood-red: #dc143c;
+            --color-dark-red: #8b0000;
+            --color-near-black: #0a0a0a;
+            --color-dark-gray: #1a1a1a;
+            --color-off-white: #e0e0e0;
+            --font-ocr: 'Share Tech Mono', 'Courier Prime', monospace;
+            --font-din: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            background: var(--color-near-black);
+            color: var(--color-off-white);
+            font-family: var(--font-din);
+        }
+
+        /* === VHS Scanlines === */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 9999;
+            animation: scanlines 8s linear infinite;
+        }
+
+        @keyframes scanlines {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(10px); }
+        }
+
+        /* === Header Bar === */
+        .admin-header {
+            background: linear-gradient(180deg, rgba(30, 30, 30, 0.95) 0%, rgba(20, 20, 20, 0.95) 100%);
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--color-blood-red);
+            position: relative;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(220, 20, 60, 0.2);
+        }
+
+        .admin-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin-title h1 {
+            font-family: var(--font-ocr);
+            font-size: 1.2rem;
+            letter-spacing: 0.3em;
+            color: var(--color-blood-red);
+            text-transform: uppercase;
+            margin: 0;
+            font-weight: normal;
+        }
+
+        .admin-status {
+            font-family: var(--font-ocr);
+            font-size: 0.7rem;
+            color: rgba(224, 224, 224, 0.5);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .admin-nav {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .admin-nav a {
+            font-family: var(--font-din);
+            font-size: 0.85rem;
+            color: var(--color-off-white);
+            text-decoration: none;
+            padding: 6px 14px;
+            border: 1px solid rgba(220, 20, 60, 0.5);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .admin-nav a:hover {
+            background: rgba(220, 20, 60, 0.1);
+            border-color: var(--color-blood-red);
+            box-shadow: 0 0 8px rgba(220, 20, 60, 0.3);
+        }
+
+        .admin-nav a:active {
+            transform: scale(0.98);
+        }
+
+        /* === Dashboard iframe === */
+        .dashboard-container {
+            width: 100%;
+            height: calc(100vh - 50px);
+            position: relative;
+            background: var(--color-near-black);
+        }
+
+        iframe {
+            border: none;
+            width: 100%;
+            height: 100%;
+            display: block;
+            background: var(--color-near-black);
+        }
+
+        /* === Loading State === */
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--color-near-black);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-text {
+            font-family: var(--font-ocr);
+            font-size: 1.2rem;
+            color: var(--color-blood-red);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .loading-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .loading-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--color-blood-red);
+            border-radius: 50%;
+            animation: dotPulse 1.5s ease-in-out infinite;
+        }
+
+        .loading-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .loading-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes dotPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+        }
+
+        /* === Responsive === */
+        @media (max-width: 768px) {
+            .admin-header {
+                padding: 10px 16px;
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            .admin-title h1 {
+                font-size: 1rem;
+                letter-spacing: 0.2em;
+            }
+
+            .admin-status {
+                font-size: 0.6rem;
+            }
+
+            .admin-nav {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .admin-nav a {
+                font-size: 0.75rem;
+                padding: 5px 10px;
+            }
+
+            .dashboard-container {
+                height: calc(100vh - 90px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .admin-title h1 {
+                font-size: 0.9rem;
+                letter-spacing: 0.15em;
+            }
+
+            .loading-text {
+                font-size: 1rem;
+            }
+        }
+
+        /* === Error State === */
+        .error-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-family: var(--font-ocr);
+            color: var(--color-blood-red);
+            display: none;
+            z-index: 60;
+        }
+
+        .error-message.visible {
+            display: block;
+        }
+
+        .error-code {
+            font-size: 3rem;
+            letter-spacing: 0.3em;
+            margin-bottom: 20px;
+        }
+
+        .error-text {
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            color: rgba(224, 224, 224, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Bar -->
+    <header class="admin-header">
+        <div class="admin-title">
+            <div>
+                <h1>OPERATIONS</h1>
+                <div class="admin-status">Real-time monitoring</div>
+            </div>
+        </div>
+        <nav class="admin-nav">
+            <a href="{{ url_for('home') }}">← Main Site</a>
+        </nav>
+    </header>
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-text">Loading operations...</div>
+            <div class="loading-dots">
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+            </div>
+        </div>
+
+        <!-- Error Message -->
+        <div class="error-message" id="errorMessage">
+            <div class="error-code">ERROR</div>
+            <div class="error-text">
+                Dashboard unavailable<br>
+                <small>Check connection or contact support</small>
+            </div>
+        </div>
+
+        <!-- Dashboard iframe -->
+        <iframe 
+            id="dashboardFrame"
+            src="{{ game_api_url }}/admin"
+            title="Game Operations Dashboard"
+            allow="clipboard-write">
+        </iframe>
+    </div>
+
+    <script>
+        // Handle iframe loading
+        const iframe = document.getElementById('dashboardFrame');
+        const loading = document.getElementById('loadingOverlay');
+        const errorMsg = document.getElementById('errorMessage');
+        let loadTimeout;
+
+        // Hide loading when iframe loads
+        iframe.addEventListener('load', function() {
+            clearTimeout(loadTimeout);
+            setTimeout(() => {
+                loading.classList.add('hidden');
+            }, 500);
+        });
+
+        // Show error if loading takes too long (30 seconds)
+        loadTimeout = setTimeout(() => {
+            if (!loading.classList.contains('hidden')) {
+                loading.classList.add('hidden');
+                errorMsg.classList.add('visible');
+            }
+        }, 30000);
+
+        // Handle iframe errors
+        iframe.addEventListener('error', function() {
+            clearTimeout(loadTimeout);
+            loading.classList.add('hidden');
+            errorMsg.classList.add('visible');
+        });
+
+        // Optional: Log console messages for debugging
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            console.log('Admin Dashboard Loaded');
+            console.log('Game API URL:', '{{ game_api_url }}');
+        }
+    </script>
+</body>
+</html>
+
