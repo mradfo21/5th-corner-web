@@ -19,7 +19,7 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-key-change-in-produ
 DISCORD_INVITE = os.environ.get('DISCORD_INVITE', 'https://discord.gg/YOUR_INVITE_CODE')
 
 # Game API URL for admin dashboard
-GAME_API_URL = os.environ.get('GAME_API_URL', 'https://fiveth-corner-operations.onrender.com')
+GAME_API_URL = os.environ.get('GAME_API_URL', 'https://fiveth-corner-dev-1a00.onrender.com')
 
 # Bot integration (for future phases)
 BOT_ROOT = Path(__file__).parent.parent
