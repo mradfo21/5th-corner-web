@@ -328,6 +328,54 @@
     }
     
     /**
+     * Add touch support for mobile redaction effects
+     */
+    function initMobileTouchSupport() {
+        // Check if device is touch-enabled
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        
+        if (!isTouchDevice) return;
+        
+        // Add touch toggle for redacted elements
+        document.querySelectorAll('.redacted, .choice-desc').forEach(element => {
+            let isRevealed = false;
+            
+            element.addEventListener('touchstart', function(e) {
+                if (!isRevealed) {
+                    e.preventDefault();
+                    this.classList.add('touch-revealed');
+                    isRevealed = true;
+                    
+                    // Auto-hide after 3 seconds
+                    setTimeout(() => {
+                        this.classList.remove('touch-revealed');
+                        isRevealed = false;
+                    }, 3000);
+                }
+            });
+        });
+        
+        // Add haptic feedback for choice cards (if supported)
+        document.querySelectorAll('.choice-card.clickable').forEach(card => {
+            card.addEventListener('touchstart', function() {
+                if (navigator.vibrate) {
+                    navigator.vibrate(10); // Subtle haptic feedback
+                }
+            });
+        });
+        
+        // Improve scroll-to-top button for mobile
+        const scrollButton = document.getElementById('scrollToTop');
+        if (scrollButton) {
+            scrollButton.addEventListener('touchstart', function() {
+                if (navigator.vibrate) {
+                    navigator.vibrate(5);
+                }
+            });
+        }
+    }
+    
+    /**
      * Initialize all functions when DOM is ready
      */
     function init() {
@@ -342,6 +390,7 @@
         initCopyDiscordLink();
         initScrollToTop();
         initKeyboardShortcuts();
+        initMobileTouchSupport();
         
         console.log('R.A.S.T.E.R. initialized');
     }

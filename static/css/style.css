@@ -757,6 +757,12 @@ section {
     color: var(--color-off-white);
 }
 
+/* Touch reveal state for mobile */
+.redacted.touch-revealed {
+    background-color: transparent;
+    color: var(--color-off-white);
+}
+
 /* Choice descriptions get full redaction bars */
 .choice-desc {
     position: relative;
@@ -787,6 +793,16 @@ section {
 }
 
 .choice-desc:hover::after {
+    color: var(--color-off-white);
+}
+
+/* Touch reveal for mobile */
+.choice-desc.touch-revealed {
+    background-color: transparent;
+    color: var(--color-off-white);
+}
+
+.choice-desc.touch-revealed::after {
     color: var(--color-off-white);
 }
 
@@ -966,6 +982,83 @@ section {
 
 .color-green {
     color: var(--color-phosphor-green);
+}
+
+/* ========================================
+   MOBILE & TOUCH SUPPORT
+   ======================================== */
+
+/* Enable touch-based redaction reveals */
+@media (hover: none) and (pointer: coarse) {
+    /* Make redacted text visible on tap for mobile */
+    .redacted {
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .redacted:active {
+        background-color: transparent;
+        color: var(--color-off-white);
+    }
+    
+    .choice-desc:active {
+        background-color: transparent;
+        color: var(--color-off-white);
+    }
+    
+    .choice-desc:active::after {
+        color: var(--color-off-white);
+    }
+    
+    /* Touch feedback for choice cards */
+    .choice-card.clickable:active {
+        transform: translateY(-2px);
+        border-color: var(--color-vhs-red);
+        box-shadow: 0 0 20px rgba(255, 0, 51, 0.25);
+    }
+    
+    /* Touch feedback for buttons */
+    .cta-button:active {
+        box-shadow: 0 0 25px rgba(255, 0, 51, 0.5);
+        background-color: rgba(255, 0, 51, 0.9);
+    }
+    
+    /* Touch feedback for VHS frames */
+    .vhs-frame:active {
+        border-color: var(--color-vhs-red);
+        box-shadow: 0 0 20px rgba(255, 0, 51, 0.25);
+        background-color: rgba(255, 0, 51, 0.02);
+    }
+    
+    .vhs-frame:active .gallery-image {
+        filter: contrast(1.2) brightness(1);
+    }
+    
+    /* Hero title glitch on mobile - tap to activate */
+    .hero-title.glitch:active::before,
+    .footer-text .glitch:active::before {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 1px;
+        width: 100%;
+        height: 100%;
+        text-shadow: -1px 0 var(--color-vhs-red);
+        clip: rect(24px, 550px, 90px, 0);
+        animation: glitch-anim 0.5s linear;
+    }
+    
+    .hero-title.glitch:active::after,
+    .footer-text .glitch:active::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: -1px;
+        width: 100%;
+        height: 100%;
+        text-shadow: 1px 0 rgba(255, 0, 51, 0.5);
+        clip: rect(85px, 550px, 140px, 0);
+        animation: glitch-anim 0.5s linear;
+    }
 }
 
 /* ========================================
