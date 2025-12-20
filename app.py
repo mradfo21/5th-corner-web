@@ -38,14 +38,14 @@ def health():
 
 @app.errorhandler(404)
 def not_found(e):
-    """Custom 404 page - redirect to home"""
-    return render_template('index.html', discord_invite=DISCORD_INVITE), 404
+    """Custom 404 page - VHS themed"""
+    return render_template('404.html', discord_invite=DISCORD_INVITE), 404
 
 
 @app.errorhandler(500)
 def internal_error(e):
     """Custom 500 page"""
-    return render_template('index.html', discord_invite=DISCORD_INVITE), 500
+    return render_template('404.html', discord_invite=DISCORD_INVITE), 500
 
 
 if __name__ == '__main__':

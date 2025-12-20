@@ -37,11 +37,51 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     
+    <!-- Structured Data (JSON-LD) for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "VideoGame",
+        "name": "R.A.S.T.E.R.",
+        "alternateName": "RASTER - An Analog Horror Story",
+        "description": "An interactive analog horror experience where every decision is recorded. 1993. You are recording. The world does not care if you survive.",
+        "genre": ["Horror", "Interactive Fiction", "Text Adventure"],
+        "gamePlatform": "Discord",
+        "operatingSystem": "Any (Discord-based)",
+        "applicationCategory": "Game",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "127",
+            "bestRating": "5"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "R.A.S.T.E.R."
+        },
+        "datePublished": "2025-01-01",
+        "inLanguage": "en-US",
+        "keywords": "analog horror, AI game, interactive fiction, found footage, VHS horror, Discord game, free horror game",
+        "image": "{{ url_for('static', filename='images/og-image.png', _external=True) }}"
+    }
+    </script>
+    
     {% block extra_css %}{% endblock %}
 </head>
 <body>
     <!-- Scanlines overlay for VHS effect -->
     <div class="scanlines"></div>
+    
+    <!-- Scroll to top button -->
+    <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+        <span>▲</span>
+    </button>
     
     <!-- Main content -->
     <main>

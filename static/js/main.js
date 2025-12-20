@@ -129,8 +129,15 @@
      * Handle image load errors (show placeholder)
      */
     function initImageErrorHandling() {
-        document.querySelectorAll('.gallery-image').forEach(img => {
+        document.querySelectorAll('.gallery-image, .modal-image').forEach(img => {
+            // Mark as loaded when image loads
+            img.addEventListener('load', function() {
+                this.setAttribute('data-loaded', 'true');
+            });
+            
+            // Handle errors
             img.addEventListener('error', function() {
+                this.setAttribute('data-loaded', 'true');
                 // Create placeholder if image fails to load
                 this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect width="400" height="300" fill="%231A1A1A"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="monospace" font-size="14" fill="%23E0E0E0"%3E[TAPE CORRUPTED]%3C/text%3E%3C/svg%3E';
                 this.alt = 'Image not available';
@@ -196,6 +203,131 @@
     }
     
     /**
+     * Copy Discord link to clipboard
+     */
+    function initCopyDiscordLink() {
+        const copyButton = document.getElementById('copyDiscordLink');
+        if (!copyButton) return;
+        
+        copyButton.addEventListener('click', async function() {
+            const discordLink = document.querySelector('a[href*="discord"]')?.href;
+            if (!discordLink) return;
+            
+            try {
+                await navigator.clipboard.writeText(discordLink);
+                
+                // Visual feedback
+                const originalText = this.innerHTML;
+                this.innerHTML = '<span class="cta-icon">✓</span> COPIED!';
+                this.style.background = 'var(--color-vhs-red)';
+                
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.style.background = '';
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy link:', err);
+                alert('Link: ' + discordLink);
+            }
+        });
+    }
+    
+    /**
+     * Scroll to top button
+     */
+    function initScrollToTop() {
+        const scrollButton = document.getElementById('scrollToTop');
+        if (!scrollButton) return;
+        
+        // Show/hide based on scroll position
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollButton.classList.add('visible');
+            } else {
+                scrollButton.classList.remove('visible');
+            }
+        });
+        
+        // Scroll to top when clicked
+        scrollButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+    
+    /**
+     * Keyboard shortcuts easter egg
+     */
+    function initKeyboardShortcuts() {
+        let konamiCode = [];
+        const konamiSequence = ['r', 'a', 's', 't', 'e', 'r'];
+        
+        document.addEventListener('keydown', function(e) {
+            // R key - quick info
+            if (e.key === 'r' && !e.ctrlKey && !e.metaKey && e.target.tagName !== 'INPUT') {
+                const hero = document.querySelector('.hero');
+                if (hero && window.pageYOffset > 100) {
+                    hero.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+            
+            // Konami code easter egg (type "raster")
+            konamiCode.push(e.key.toLowerCase());
+            if (konamiCode.length > konamiSequence.length) {
+                konamiCode.shift();
+            }
+            
+            if (JSON.stringify(konamiCode) === JSON.stringify(konamiSequence)) {
+                triggerEasterEgg();
+                konamiCode = [];
+            }
+        });
+    }
+    
+    /**
+     * Easter egg activation
+     */
+    function triggerEasterEgg() {
+        // Create VHS static flash
+        const flash = document.createElement('div');
+        flash.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(255, 0, 51, 0.1);
+            z-index: 99999;
+            pointer-events: none;
+            animation: vhsFlash 0.5s ease-out;
+        `;
+        document.body.appendChild(flash);
+        
+        // Add flash animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes vhsFlash {
+                0%, 100% { opacity: 0; }
+                50% { opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Remove after animation
+        setTimeout(() => {
+            flash.remove();
+            style.remove();
+        }, 500);
+        
+        // Log secret message
+        console.log('%c[TAPE SYSTEM]', 'color: #ff0033; font-family: monospace; font-size: 14px;');
+        console.log('%cRecording protocol acknowledged.', 'color: #e0e0e0; font-family: monospace;');
+        console.log('%cYour actions are being logged.', 'color: #999; font-family: monospace;');
+    }
+    
+    /**
      * Initialize all functions when DOM is ready
      */
     function init() {
@@ -207,6 +339,9 @@
         initScrollAnimations();
         initImageErrorHandling();
         initChoiceModal();
+        initCopyDiscordLink();
+        initScrollToTop();
+        initKeyboardShortcuts();
         
         console.log('R.A.S.T.E.R. initialized');
     }
