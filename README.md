@@ -3,6 +3,8 @@
 
 A Flask-powered website for 5th Corner, featuring our flagship game R.A.S.T.E.R. - an AI-powered analog horror narrative experience delivered through Discord.
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/mradfo21/5th-corner-web)
+
 ![SOMEWHERE](static/images/og-image.png)
 
 ---
