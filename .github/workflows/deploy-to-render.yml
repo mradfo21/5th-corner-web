@@ -1,0 +1,50 @@
+name: Deploy to Render
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Deploy to Render
+        if: ${{ secrets.RENDER_API_KEY != '' && secrets.RENDER_SERVICE_ID != '' }}
+        run: |
+          echo "🚀 Triggering Render deployment..."
+          
+          curl -X POST "https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys" \
+            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{"clearCache": "do_not_clear"}'
+          
+          echo "✅ Deployment triggered successfully!"
+      
+      - name: Deploy via Deploy Hook
+        if: ${{ secrets.RENDER_DEPLOY_HOOK != '' }}
+        run: |
+          echo "🚀 Triggering deployment via deploy hook..."
+          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
+          echo "✅ Deployment triggered!"
+      
+      - name: Deployment Info
+        run: |
+          echo "ℹ️  To enable automatic deployments:"
+          echo ""
+          echo "Option 1: Using Deploy Hook (easiest)"
+          echo "  1. Go to your Render service settings"
+          echo "  2. Copy the Deploy Hook URL"
+          echo "  3. Add it as RENDER_DEPLOY_HOOK secret in GitHub"
+          echo ""
+          echo "Option 2: Using Render API"
+          echo "  1. Create a Render API key at:"
+          echo "     https://dashboard.render.com/u/settings?add-api-key"
+          echo "  2. Add RENDER_API_KEY and RENDER_SERVICE_ID as GitHub secrets"
+          echo ""
+          echo "Then this workflow will automatically deploy on push to main!"
