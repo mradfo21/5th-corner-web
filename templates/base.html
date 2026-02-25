@@ -6,22 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     <!-- SEO Meta Tags -->
-    <title>{% block title %}R.A.S.T.E.R. - An Analog Horror Story{% endblock %}</title>
-    <meta name="description" content="An interactive analog horror experience where every decision is recorded. 1993. You are recording. The world does not care if you survive.">
-    <meta name="keywords" content="analog horror, AI game, interactive fiction, found footage, VHS horror, Discord game">
-    <meta name="author" content="R.A.S.T.E.R.">
+    <title>{% block title %}5th Corner - Interactive Horror Experiences{% endblock %}</title>
+    <meta name="description" content="5th Corner creates experimental horror games powered by AI. Play R.A.S.T.E.R., our analog horror experience where every choice is permanent.">
+    <meta name="keywords" content="5th corner, analog horror, AI game, interactive fiction, found footage, VHS horror, Discord game, horror games">
+    <meta name="author" content="5th Corner">
     
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.url }}">
-    <meta property="og:title" content="R.A.S.T.E.R. - An Analog Horror Story">
-    <meta property="og:description" content="1993. You are recording. The world does not care if you survive.">
+    <meta property="og:title" content="{% block og_title %}5th Corner - Interactive Horror Experiences{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Experimental horror games where every choice matters. Play R.A.S.T.E.R., our AI-powered analog horror experience.{% endblock %}">
     <meta property="og:image" content="{{ url_for('static', filename='images/og-image.png', _external=True) }}">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="R.A.S.T.E.R. - An Analog Horror Story">
-    <meta name="twitter:description" content="1993. You are recording. The world does not care if you survive.">
+    <meta name="twitter:title" content="{% block twitter_title %}5th Corner - Interactive Horror Experiences{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Experimental horror games where every choice matters.{% endblock %}">
     <meta name="twitter:image" content="{{ url_for('static', filename='images/og-image.png', _external=True) }}">
     
     <!-- Favicon -->
@@ -38,39 +38,31 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     
     <!-- Structured Data (JSON-LD) for SEO -->
+    {% block structured_data %}
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "VideoGame",
-        "name": "R.A.S.T.E.R.",
-        "alternateName": "RASTER - An Analog Horror Story",
-        "description": "An interactive analog horror experience where every decision is recorded. 1993. You are recording. The world does not care if you survive.",
-        "genre": ["Horror", "Interactive Fiction", "Text Adventure"],
-        "gamePlatform": "Discord",
-        "operatingSystem": "Any (Discord-based)",
-        "applicationCategory": "Game",
-        "offers": {
+        "@type": "Organization",
+        "name": "5th Corner",
+        "description": "Game development studio creating experimental horror experiences powered by AI.",
+        "url": "{{ request.url_root }}",
+        "logo": "{{ url_for('static', filename='images/og-image.png', _external=True) }}",
+        "foundingDate": "2025",
+        "sameAs": [],
+        "makesOffer": {
             "@type": "Offer",
+            "itemOffered": {
+                "@type": "VideoGame",
+                "name": "R.A.S.T.E.R.",
+                "genre": ["Horror", "Interactive Fiction"],
+                "gamePlatform": "Discord"
+            },
             "price": "0",
-            "priceCurrency": "USD",
-            "availability": "https://schema.org/InStock"
-        },
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.8",
-            "ratingCount": "127",
-            "bestRating": "5"
-        },
-        "author": {
-            "@type": "Organization",
-            "name": "R.A.S.T.E.R."
-        },
-        "datePublished": "2025-01-01",
-        "inLanguage": "en-US",
-        "keywords": "analog horror, AI game, interactive fiction, found footage, VHS horror, Discord game, free horror game",
-        "image": "{{ url_for('static', filename='images/og-image.png', _external=True) }}"
+            "priceCurrency": "USD"
+        }
     }
     </script>
+    {% endblock %}
     
     {% block extra_css %}{% endblock %}
 </head>
@@ -93,10 +85,10 @@
         <div class="container">
             <div class="footer-content">
                 <p class="footer-text">
-                    <span class="glitch" data-text="R.A.S.T.E.R.">R.A.S.T.E.R.</span> &copy; 2025
+                    <span class="glitch" data-text="5TH CORNER">5TH CORNER</span> &copy; 2025
                 </p>
                 <p class="footer-subtext">
-                    Recovered from damaged magnetic tape.
+                    {% block footer_tagline %}Building experiences that matter.{% endblock %}
                 </p>
                 <p class="footer-access">
                     <a href="{{ url_for('admin_dashboard') }}" class="access-link">[ OPS-ACCESS ]</a>
