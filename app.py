@@ -1,8 +1,8 @@
 """
-R.A.S.T.E.R. - Flask Website
-An Analog Horror Story
+5th Corner - Flask Website
+Interactive Horror Experiences
 
-Phase 1: Simple landing page with room to grow
+Company landing page + R.A.S.T.E.R. game showcase
 """
 from flask import Flask, render_template, jsonify
 from pathlib import Path
@@ -29,8 +29,14 @@ CACHE_DIR = BOT_ROOT / "cache"
 
 @app.route('/')
 def home():
-    """Main landing page"""
+    """5th Corner company landing page"""
     return render_template('index.html', discord_invite=DISCORD_INVITE)
+
+
+@app.route('/raster')
+def raster():
+    """R.A.S.T.E.R. game page"""
+    return render_template('raster.html', discord_invite=DISCORD_INVITE)
 
 
 @app.route('/admin')

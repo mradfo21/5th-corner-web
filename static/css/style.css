@@ -1,6 +1,6 @@
 /* 
- * R.A.S.T.E.R. - An Analog Horror Story
- * VHS Aesthetic Landing Page
+ * 5th Corner - Interactive Horror Experiences
+ * VHS Aesthetic Website (Company + R.A.S.T.E.R. Game)
  */
 
 /* ========================================
@@ -715,6 +715,12 @@ section {
     margin-top: 0;
     font-size: 0.9rem;
     color: rgba(224, 224, 224, 0.6);
+}
+
+.project-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--spacing-lg);
 }
 
 @media (max-width: 600px) {
