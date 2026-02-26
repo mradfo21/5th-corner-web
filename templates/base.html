@@ -6,22 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     <!-- SEO Meta Tags -->
-    <title>{% block title %}5th Corner - Interactive Horror Experiences{% endblock %}</title>
-    <meta name="description" content="5th Corner creates experimental horror games powered by AI. Play R.A.S.T.E.R., our analog horror experience where every choice is permanent.">
-    <meta name="keywords" content="5th corner, analog horror, AI game, interactive fiction, found footage, VHS horror, Discord game, horror games">
+    <title>{% block title %}5th Corner{% endblock %}</title>
+    <meta name="description" content="5th Corner — We write. We draw. We film. We code. Games, film, and VFX studio building the future of interactive entertainment.">
+    <meta name="keywords" content="5th corner, games, film, vfx, interactive entertainment, creative studio">
     <meta name="author" content="5th Corner">
     
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.url }}">
-    <meta property="og:title" content="{% block og_title %}5th Corner - Interactive Horror Experiences{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}Experimental horror games where every choice matters. Play R.A.S.T.E.R., our AI-powered analog horror experience.{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}5th Corner{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}We write. We draw. We film. We code.{% endblock %}">
     <meta property="og:image" content="{{ url_for('static', filename='images/og-image.png', _external=True) }}">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{% block twitter_title %}5th Corner - Interactive Horror Experiences{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}Experimental horror games where every choice matters.{% endblock %}">
+    <meta name="twitter:title" content="{% block twitter_title %}5th Corner{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}We write. We draw. We film. We code.{% endblock %}">
     <meta name="twitter:image" content="{{ url_for('static', filename='images/og-image.png', _external=True) }}">
     
     <!-- Favicon -->
@@ -31,35 +31,21 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Institutional / SCP fonts: OCR, DIN, Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Share+Tech+Mono&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     
-    <!-- Structured Data (JSON-LD) for SEO -->
     {% block structured_data %}
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "5th Corner",
-        "description": "Game development studio creating experimental horror experiences powered by AI.",
+        "description": "Games, film, and VFX studio building the future of interactive entertainment.",
         "url": "{{ request.url_root }}",
         "logo": "{{ url_for('static', filename='images/og-image.png', _external=True) }}",
-        "foundingDate": "2025",
-        "sameAs": [],
-        "makesOffer": {
-            "@type": "Offer",
-            "itemOffered": {
-                "@type": "VideoGame",
-                "name": "R.A.S.T.E.R.",
-                "genre": ["Horror", "Interactive Fiction"],
-                "gamePlatform": "Discord"
-            },
-            "price": "0",
-            "priceCurrency": "USD"
-        }
+        "foundingDate": "2025"
     }
     </script>
     {% endblock %}
@@ -67,39 +53,54 @@
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <!-- Scanlines overlay for VHS effect -->
-    <div class="scanlines"></div>
-    
-    <!-- Scroll to top button -->
-    <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-        <span>▲</span>
-    </button>
-    
+    <!-- Navigation Overlay -->
+    <nav class="site-nav" id="siteNav">
+        <a href="{{ url_for('home') }}" class="nav-logo">5TH CORNER</a>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}#games" class="nav-link">Games</a>
+            <a href="{{ url_for('home') }}#film" class="nav-link">Film</a>
+            <a href="{{ url_for('home') }}#vfx" class="nav-link">VFX</a>
+            <a href="{{ url_for('raster') }}" class="nav-link">R.A.S.T.E.R.</a>
+        </div>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="{{ url_for('home') }}#games" class="mobile-menu-link">Games</a>
+        <a href="{{ url_for('home') }}#film" class="mobile-menu-link">Film</a>
+        <a href="{{ url_for('home') }}#vfx" class="mobile-menu-link">VFX</a>
+        <a href="{{ url_for('raster') }}" class="mobile-menu-link">R.A.S.T.E.R.</a>
+    </div>
+
     <!-- Main content -->
     <main>
         {% block content %}{% endblock %}
     </main>
-    
+
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <p class="footer-text">
-                    <span class="glitch" data-text="5TH CORNER">5TH CORNER</span> &copy; 2025
-                </p>
-                <p class="footer-subtext">
-                    {% block footer_tagline %}Building experiences that matter.{% endblock %}
-                </p>
-                <p class="footer-access">
-                    <a href="{{ url_for('admin_dashboard') }}" class="access-link">[ OPS-ACCESS ]</a>
-                </p>
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">5TH CORNER</div>
+            <div class="footer-tagline">{% block footer_tagline %}We write. We draw. We film. We code.{% endblock %}</div>
+            <div class="footer-links">
+                <a href="{{ url_for('home') }}#games">Games</a>
+                <a href="{{ url_for('home') }}#film">Film</a>
+                <a href="{{ url_for('home') }}#vfx">VFX</a>
+                <a href="{{ url_for('raster') }}">R.A.S.T.E.R.</a>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2025 5th Corner. All rights reserved.</span>
+                <a href="{{ url_for('admin_dashboard') }}" class="footer-ops">OPS</a>
             </div>
         </div>
     </footer>
-    
+
     <!-- JavaScript -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>
-

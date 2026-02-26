@@ -1,24 +1,124 @@
 /**
- * R.A.S.T.E.R. - Main JavaScript
- * Minimal interactivity for landing page
+ * 5th Corner — Main JavaScript
+ * Handles scroll animations, navigation, and section transitions
  */
 
 (function() {
     'use strict';
-    
-    /**
-     * Smooth scroll for anchor links
-     */
+
+    /* ========================================
+       NAVIGATION
+       ======================================== */
+
+    function initNavigation() {
+        const nav = document.getElementById('siteNav');
+        const toggle = document.getElementById('navToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (!nav) return;
+
+        // Scroll-based nav background
+        let lastScroll = 0;
+        window.addEventListener('scroll', function() {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+            lastScroll = currentScroll;
+        }, { passive: true });
+
+        // Mobile menu toggle
+        if (toggle && mobileMenu) {
+            toggle.addEventListener('click', function() {
+                toggle.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            });
+
+            // Close mobile menu on link click
+            mobileMenu.querySelectorAll('.mobile-menu-link').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    toggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
+    }
+
+    /* ========================================
+       SCROLL REVEAL ANIMATIONS
+       ======================================== */
+
+    function initScrollReveal() {
+        var revealSelectors = [
+            '.content-label',
+            '.content-heading',
+            '.content-body',
+            '.project-links',
+            '.studio-heading',
+            '.studio-body',
+            '.studio-cta'
+        ];
+
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -80px 0px'
+        });
+
+        revealSelectors.forEach(function(selector) {
+            document.querySelectorAll(selector).forEach(function(el) {
+                observer.observe(el);
+            });
+        });
+    }
+
+    /* ========================================
+       PARALLAX-LIKE BACKGROUND SCALING
+       ======================================== */
+
+    function initSectionObserver() {
+        var sections = document.querySelectorAll('.section');
+
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                } else {
+                    entry.target.classList.remove('in-view');
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        sections.forEach(function(section) {
+            observer.observe(section);
+        });
+    }
+
+    /* ========================================
+       SMOOTH ANCHOR SCROLLING
+       ======================================== */
+
     function initSmoothScroll() {
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
             anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
+                var href = this.getAttribute('href');
                 if (href === '#') return;
-                
-                e.preventDefault();
-                const target = document.querySelector(href);
-                
+
+                var target = document.querySelector(href);
                 if (target) {
+                    e.preventDefault();
                     target.scrollIntoView({
                         behavior: 'smooth',
                         block: 'start'
@@ -27,380 +127,108 @@
             });
         });
     }
-    
-    /**
-     * Track CTA button clicks (for analytics if needed)
-     */
-    function initCTATracking() {
-        document.querySelectorAll('.cta-button').forEach(button => {
-            button.addEventListener('click', function(e) {
-                const buttonText = this.textContent.trim();
-                console.log('CTA clicked:', buttonText);
-                
-                // Add analytics tracking here if needed
-                // Example: gtag('event', 'cta_click', { button_text: buttonText });
-            });
-        });
-    }
-    
-    /**
-     * Add VHS static effect on hero section hover
-     */
-    function initVHSEffect() {
-        const hero = document.querySelector('.hero');
-        if (!hero) return;
-        
-        hero.addEventListener('mouseenter', function() {
-            this.style.animation = 'vhs-static 0.3s';
-        });
-        
-        hero.addEventListener('animationend', function() {
-            this.style.animation = '';
-        });
-    }
-    
-    /**
-     * Lazy load images for performance
-     */
-    function initLazyLoading() {
-        if ('loading' in HTMLImageElement.prototype) {
-            // Native lazy loading supported
-            const images = document.querySelectorAll('img[loading="lazy"]');
-            images.forEach(img => {
-                img.src = img.src;
-            });
-        } else {
-            // Fallback for browsers that don't support native lazy loading
-            const script = document.createElement('script');
-            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
-            document.body.appendChild(script);
-        }
-    }
-    
-    /**
-     * Add glitch effect to random text elements periodically
-     */
-    function initRandomGlitch() {
-        const glitchElements = document.querySelectorAll('.hero-title, .section-title');
-        
-        function triggerGlitch() {
-            const randomElement = glitchElements[Math.floor(Math.random() * glitchElements.length)];
-            if (randomElement) {
-                randomElement.style.animation = 'glitch-anim 0.3s';
-                setTimeout(() => {
-                    randomElement.style.animation = '';
-                }, 300);
+
+    /* ========================================
+       SCROLL INDICATOR HIDE ON SCROLL
+       ======================================== */
+
+    function initScrollIndicator() {
+        var indicator = document.getElementById('scrollIndicator');
+        if (!indicator) return;
+
+        var hidden = false;
+        window.addEventListener('scroll', function() {
+            if (!hidden && window.pageYOffset > 100) {
+                indicator.style.opacity = '0';
+                indicator.style.transition = 'opacity 0.5s ease';
+                hidden = true;
             }
-        }
-        
-        // Trigger glitch every 10-15 seconds
-        setInterval(triggerGlitch, 10000 + Math.random() * 5000);
+        }, { passive: true });
     }
-    
-    /**
-     * Detect scroll and add fade-in effects
-     */
-    function initScrollAnimations() {
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
+
+    /* ========================================
+       BACKGROUND MEDIA SETUP
+       ======================================== */
+
+    function initBackgroundMedia() {
+        var mediaSections = {
+            'heroBg': '/static/images/hero.gif',
+            'gamesBg': '/static/images/games-bg.gif',
+            'filmBg': '/static/images/film-bg.gif',
+            'vfxBg': '/static/images/vfx-bg.gif',
+            'studioBg': '/static/images/studio-bg.gif'
         };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
+
+        Object.keys(mediaSections).forEach(function(id) {
+            var el = document.getElementById(id);
+            if (!el) return;
+
+            var src = mediaSections[id];
+
+            if (src.match(/\.(mp4|webm)$/i)) {
+                var video = document.createElement('video');
+                video.autoplay = true;
+                video.loop = true;
+                video.muted = true;
+                video.playsInline = true;
+                video.src = src;
+                el.appendChild(video);
+            } else {
+                el.style.backgroundImage = 'url(' + src + ')';
+            }
+        });
+    }
+
+    /* ========================================
+       PAGE SCROLL ANIMATIONS (for subpages)
+       ======================================== */
+
+    function initPageAnimations() {
+        var animElements = document.querySelectorAll(
+            '.feature-card, .media-item, .page-section'
+        );
+
+        if (animElements.length === 0) return;
+
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
                     observer.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
-        
-        // Observe elements that should fade in on scroll
-        document.querySelectorAll('.feature-item, .gallery-item, .choice-card').forEach(el => {
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        animElements.forEach(function(el) {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
             observer.observe(el);
         });
     }
-    
-    /**
-     * Handle image load errors (show placeholder)
-     */
-    function initImageErrorHandling() {
-        document.querySelectorAll('.gallery-image, .modal-image').forEach(img => {
-            // Mark as loaded when image loads
-            img.addEventListener('load', function() {
-                this.setAttribute('data-loaded', 'true');
-            });
-            
-            // Handle errors
-            img.addEventListener('error', function() {
-                this.setAttribute('data-loaded', 'true');
-                // Create placeholder if image fails to load
-                this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect width="400" height="300" fill="%231A1A1A"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="monospace" font-size="14" fill="%23E0E0E0"%3E[TAPE CORRUPTED]%3C/text%3E%3C/svg%3E';
-                this.alt = 'Image not available';
-            });
-        });
-    }
-    
-    /**
-     * Handle choice card modal
-     */
-    function initChoiceModal() {
-        const modal = document.getElementById('choiceModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalDescription = document.getElementById('modalDescription');
-        const modalImage = document.getElementById('modalImage');
-        const modalClose = document.querySelector('.modal-close');
-        const modalOverlay = document.querySelector('.modal-overlay');
-        
-        if (!modal) return;
-        
-        // Open modal when choice card is clicked
-        document.querySelectorAll('.choice-card.clickable').forEach(card => {
-            card.addEventListener('click', function(e) {
-                const title = this.getAttribute('data-choice-title');
-                const description = this.getAttribute('data-choice-description');
-                
-                // Extract background image URL from style attribute
-                const style = this.getAttribute('style');
-                const urlMatch = style.match(/url\(['"]?([^'"]+)['"]?\)/);
-                const imageUrl = urlMatch ? urlMatch[1] : '';
-                
-                modalTitle.textContent = title;
-                modalDescription.textContent = description;
-                modalImage.src = imageUrl;
-                modalImage.alt = title;
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-        });
-        
-        // Close modal function
-        function closeModal() {
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-        
-        // Close on X button
-        if (modalClose) {
-            modalClose.addEventListener('click', closeModal);
-        }
-        
-        // Close on overlay click
-        if (modalOverlay) {
-            modalOverlay.addEventListener('click', closeModal);
-        }
-        
-        // Close on Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && modal.classList.contains('active')) {
-                closeModal();
-            }
-        });
-    }
-    
-    /**
-     * Copy Discord link to clipboard
-     */
-    function initCopyDiscordLink() {
-        const copyButton = document.getElementById('copyDiscordLink');
-        if (!copyButton) return;
-        
-        copyButton.addEventListener('click', async function() {
-            const discordLink = document.querySelector('a[href*="discord"]')?.href;
-            if (!discordLink) return;
-            
-            try {
-                await navigator.clipboard.writeText(discordLink);
-                
-                // Visual feedback
-                const originalText = this.innerHTML;
-                this.innerHTML = '<span class="cta-icon">✓</span> COPIED!';
-                this.style.background = 'var(--color-vhs-red)';
-                
-                setTimeout(() => {
-                    this.innerHTML = originalText;
-                    this.style.background = '';
-                }, 2000);
-            } catch (err) {
-                console.error('Failed to copy link:', err);
-                alert('Link: ' + discordLink);
-            }
-        });
-    }
-    
-    /**
-     * Scroll to top button
-     */
-    function initScrollToTop() {
-        const scrollButton = document.getElementById('scrollToTop');
-        if (!scrollButton) return;
-        
-        // Show/hide based on scroll position
-        window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 300) {
-                scrollButton.classList.add('visible');
-            } else {
-                scrollButton.classList.remove('visible');
-            }
-        });
-        
-        // Scroll to top when clicked
-        scrollButton.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    }
-    
-    /**
-     * Keyboard shortcuts easter egg
-     */
-    function initKeyboardShortcuts() {
-        let konamiCode = [];
-        const konamiSequence = ['r', 'a', 's', 't', 'e', 'r'];
-        
-        document.addEventListener('keydown', function(e) {
-            // R key - quick info
-            if (e.key === 'r' && !e.ctrlKey && !e.metaKey && e.target.tagName !== 'INPUT') {
-                const hero = document.querySelector('.hero');
-                if (hero && window.pageYOffset > 100) {
-                    hero.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-            
-            // Konami code easter egg (type "raster")
-            konamiCode.push(e.key.toLowerCase());
-            if (konamiCode.length > konamiSequence.length) {
-                konamiCode.shift();
-            }
-            
-            if (JSON.stringify(konamiCode) === JSON.stringify(konamiSequence)) {
-                triggerEasterEgg();
-                konamiCode = [];
-            }
-        });
-    }
-    
-    /**
-     * Easter egg activation
-     */
-    function triggerEasterEgg() {
-        // Create VHS static flash
-        const flash = document.createElement('div');
-        flash.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(255, 0, 51, 0.1);
-            z-index: 99999;
-            pointer-events: none;
-            animation: vhsFlash 0.5s ease-out;
-        `;
-        document.body.appendChild(flash);
-        
-        // Add flash animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes vhsFlash {
-                0%, 100% { opacity: 0; }
-                50% { opacity: 1; }
-            }
-        `;
-        document.head.appendChild(style);
-        
-        // Remove after animation
-        setTimeout(() => {
-            flash.remove();
-            style.remove();
-        }, 500);
-        
-        // Log secret message
-        console.log('%c[TAPE SYSTEM]', 'color: #ff0033; font-family: monospace; font-size: 14px;');
-        console.log('%cRecording protocol acknowledged.', 'color: #e0e0e0; font-family: monospace;');
-        console.log('%cYour actions are being logged.', 'color: #999; font-family: monospace;');
-    }
-    
-    /**
-     * Add touch support for mobile redaction effects
-     */
-    function initMobileTouchSupport() {
-        // Check if device is touch-enabled
-        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        
-        if (!isTouchDevice) return;
-        
-        // Add touch toggle for redacted elements
-        document.querySelectorAll('.redacted, .choice-desc').forEach(element => {
-            let isRevealed = false;
-            
-            element.addEventListener('touchstart', function(e) {
-                if (!isRevealed) {
-                    e.preventDefault();
-                    this.classList.add('touch-revealed');
-                    isRevealed = true;
-                    
-                    // Auto-hide after 3 seconds
-                    setTimeout(() => {
-                        this.classList.remove('touch-revealed');
-                        isRevealed = false;
-                    }, 3000);
-                }
-            });
-        });
-        
-        // Add haptic feedback for choice cards (if supported)
-        document.querySelectorAll('.choice-card.clickable').forEach(card => {
-            card.addEventListener('touchstart', function() {
-                if (navigator.vibrate) {
-                    navigator.vibrate(10); // Subtle haptic feedback
-                }
-            });
-        });
-        
-        // Improve scroll-to-top button for mobile
-        const scrollButton = document.getElementById('scrollToTop');
-        if (scrollButton) {
-            scrollButton.addEventListener('touchstart', function() {
-                if (navigator.vibrate) {
-                    navigator.vibrate(5);
-                }
-            });
-        }
-    }
-    
-    /**
-     * Initialize all functions when DOM is ready
-     */
+
+    /* ========================================
+       INITIALIZE
+       ======================================== */
+
     function init() {
+        initNavigation();
+        initScrollReveal();
+        initSectionObserver();
         initSmoothScroll();
-        initCTATracking();
-        initVHSEffect();
-        initLazyLoading();
-        initRandomGlitch();
-        initScrollAnimations();
-        initImageErrorHandling();
-        initChoiceModal();
-        initCopyDiscordLink();
-        initScrollToTop();
-        initKeyboardShortcuts();
-        initMobileTouchSupport();
-        
-        console.log('R.A.S.T.E.R. initialized');
+        initScrollIndicator();
+        initBackgroundMedia();
+        initPageAnimations();
     }
-    
-    // Run init when DOM is fully loaded
+
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
         init();
     }
-    
-})();
 
+})();

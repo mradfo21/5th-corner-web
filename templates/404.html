@@ -1,35 +1,19 @@
 {% extends "base.html" %}
 
-{% block title %}404 - TAPE NOT FOUND | 5th Corner{% endblock %}
+{% block title %}404 — Page Not Found | 5th Corner{% endblock %}
 
 {% block content %}
 <section class="error-page">
-    <div class="container">
-        <div class="error-content">
-            <div class="error-code glitch" data-text="404">404</div>
-            <h1 class="error-title">TAPE NOT FOUND</h1>
-            <p class="error-description">
-                The requested recording does not exist.<br>
-                Possible corruption or unauthorized access detected.
-            </p>
-            
-            <div class="error-timestamp">
-                <p>ERROR CODE: 0x4E4F5441</p>
-                <p>TIMESTAMP: [REDACTED]</p>
-                <p>LOCATION: ███████████</p>
-            </div>
-            
-            <div class="error-actions">
-                <a href="/" class="cta-button cta-primary">
-                    <span class="cta-icon">◀</span> RETURN TO START
-                </a>
-                <a href="{{ discord_invite }}" target="_blank" rel="noopener noreferrer" class="cta-button cta-secondary">
-                    <span class="cta-icon">▶</span> JOIN DISCORD
-                </a>
-            </div>
+    <div class="error-content">
+        <div class="error-code">404</div>
+        <h1 class="error-title">Page Not Found</h1>
+        <p class="error-description">
+            The page you're looking for doesn't exist or has been moved.
+        </p>
+        <div class="error-actions">
+            <a href="{{ url_for('home') }}" class="btn btn-primary">Back to Home</a>
+            <a href="{{ discord_invite }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Join Discord</a>
         </div>
     </div>
 </section>
 {% endblock %}
-
-
