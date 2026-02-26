@@ -3,230 +3,96 @@
 {% block content %}
 
 <!-- Hero Section -->
-<section class="hero">
-    <div class="hero-bg-gif"></div>
-    
-    <div class="container">
-        <div class="hero-content">
-            <h1 class="hero-title glitch" data-text="5TH CORNER">5TH CORNER</h1>
-            <p class="hero-subtitle">Interactive Horror Experiences</p>
-            <p class="hero-tagline">We build <span class="redacted">experimental games</span> where<br><span class="redacted">every choice matters</span> and nothing can be undone.</p>
-            <p class="hero-system-hint">Currently running: 1 active project</p>
-            
-            <div class="cta-buttons">
-                <a href="{{ url_for('raster') }}" class="cta-button cta-primary">
-                    <span class="cta-icon">▶</span> EXPLORE R.A.S.T.E.R.
-                </a>
-                
-                <a href="{{ discord_invite }}" target="_blank" rel="noopener noreferrer" class="cta-button cta-secondary">
-                    <span class="cta-icon">💬</span> JOIN DISCORD
-                </a>
-            </div>
-            
-            <p class="hero-note">All games are free to play.<br>No downloads. No subscriptions.</p>
+<section class="section section-hero" id="hero">
+    <div class="section-bg">
+        <div class="section-bg-media" id="heroBg"></div>
+        <div class="section-bg-overlay"></div>
+    </div>
+    <div class="section-content hero-content">
+        <h1 class="hero-title">5TH CORNER</h1>
+        <div class="hero-tagline">
+            <span class="tagline-word" data-delay="0">We write.</span>
+            <span class="tagline-spacer"></span>
+            <span class="tagline-word" data-delay="1">We draw.</span>
+            <span class="tagline-spacer"></span>
+            <span class="tagline-word" data-delay="2">We film.</span>
+            <span class="tagline-spacer"></span>
+            <span class="tagline-word" data-delay="3">We code.</span>
+        </div>
+        <div class="scroll-indicator" id="scrollIndicator">
+            <div class="scroll-line"></div>
         </div>
     </div>
 </section>
 
-<!-- Featured Project Section -->
-<section class="about">
-    <div class="container">
-        <div class="section-content">
-            <h2 class="section-title">Featured: R.A.S.T.E.R.</h2>
-            
-            <div class="description">
-                <p class="description-text">
-                    An <strong>AI-powered analog horror experience</strong> delivered through Discord.
-                    Play as an investigative journalist entering a classified desert facility in 1993.
-                    Every frame is generated in real-time. <span class="redacted">Every decision is permanent.</span>
-                    The story reacts to what you do — and the tape never lies.
-                </p>
-            </div>
-            
-            <div class="choice-grid">
-                <div class="choice-card clickable" 
-                     style="background-image: url('{{ url_for('static', filename='images/choices/choice1.png') }}');"
-                     data-choice-title="Real-Time Generation"
-                     data-choice-description="Every frame is created by AI the moment you make a decision. No pre-rendered assets. No templates. The facility exists only as you explore it, and what you see is unique to your playthrough. The system generates narrative, choices, and visuals simultaneously — creating an experience that cannot be replayed.">
-                    <div class="choice-overlay"></div>
-                    <div class="choice-content">
-                        <p class="choice-label">Real-time generation.</p>
-                        <p class="choice-desc" data-text="Every frame created live by AI.">&nbsp;</p>
-                    </div>
-                </div>
-                <div class="choice-card clickable" 
-                     style="background-image: url('{{ url_for('static', filename='images/choices/choice2.png') }}');"
-                     data-choice-title="True Permadeath"
-                     data-choice-description="When you die, it's over. No restart button. No checkpoints. Your entire playthrough is recorded to a VHS-style video file and preserved as evidence. The only way to play again is to start a completely new investigation with a fresh tape — but the facility will be different this time.">
-                    <div class="choice-overlay"></div>
-                    <div class="choice-content">
-                        <p class="choice-label">True permadeath.</p>
-                        <p class="choice-desc" data-text="Death is permanent. No reload.">&nbsp;</p>
-                    </div>
-                </div>
-                <div class="choice-card clickable" 
-                     style="background-image: url('{{ url_for('static', filename='images/choices/choice3.png') }}');"
-                     data-choice-title="Unrestricted Actions"
-                     data-choice-description="No multiple choice questions. No preset dialogue trees. Type what you actually want to do in natural language. The AI understands context, remembers your past actions, and enforces consequences. Lie to guards. Break protocol. Improvise. The system responds to creativity — and punishes contradiction.">
-                    <div class="choice-overlay"></div>
-                    <div class="choice-content">
-                        <p class="choice-label">Unrestricted actions.</p>
-                        <p class="choice-desc" data-text="Type anything. The system responds.">&nbsp;</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="project-cta">
-                <a href="{{ url_for('raster') }}" class="cta-button cta-primary cta-large">
-                    <span class="cta-icon">📼</span> LEARN MORE ABOUT R.A.S.T.E.R.
-                </a>
-            </div>
+<!-- Games Section -->
+<section class="section section-dark" id="games">
+    <div class="section-bg">
+        <div class="section-bg-media" id="gamesBg"></div>
+        <div class="section-bg-overlay overlay-heavy"></div>
+    </div>
+    <div class="section-content content-split">
+        <div class="content-label">GAMES</div>
+        <h2 class="content-heading">We're making the future of interactive entertainment.</h2>
+        <p class="content-body">Immersive narrative experiences combining cutting edge technology and ancient stagecraft.</p>
+        <div class="project-links">
+            <a href="{{ url_for('raster') }}" class="project-link">
+                <span class="project-name">SOMEWHERE</span>
+                <span class="project-arrow">&rarr;</span>
+            </a>
+            <a href="#" class="project-link">
+                <span class="project-name">AZUL</span>
+                <span class="project-arrow">&rarr;</span>
+            </a>
         </div>
     </div>
 </section>
 
-<!-- About 5th Corner Section -->
-<section class="features">
-    <div class="container">
-        <h2 class="section-title">What We Build</h2>
-        
-        <div class="feature-grid">
-            <div class="feature-item">
-                <span class="feature-icon">🎮</span>
-                <p class="feature-text">Experimental narrative games that challenge traditional gameplay.</p>
-            </div>
-            
-            <div class="feature-item">
-                <span class="feature-icon">🤖</span>
-                <p class="feature-text">AI-powered systems that create unique experiences for every player.</p>
-            </div>
-            
-            <div class="feature-item">
-                <span class="feature-icon">📼</span>
-                <p class="feature-text">Analog horror aesthetics grounded in real 1990s technology.</p>
-            </div>
-            
-            <div class="feature-item">
-                <span class="feature-icon">💀</span>
-                <p class="feature-text">True consequence systems where decisions are permanent.</p>
-            </div>
-            
-            <div class="feature-item">
-                <span class="feature-icon">🎯</span>
-                <p class="feature-text">Player agency over spectacle — you decide what happens.</p>
-            </div>
-            
-            <div class="feature-item">
-                <span class="feature-icon">🔬</span>
-                <p class="feature-text">Technical innovation that serves narrative, not the other way around.</p>
-            </div>
+<!-- Film Section -->
+<section class="section section-dark" id="film">
+    <div class="section-bg">
+        <div class="section-bg-media" id="filmBg"></div>
+        <div class="section-bg-overlay overlay-heavy"></div>
+    </div>
+    <div class="section-content content-split">
+        <div class="content-label">FILM</div>
+        <h2 class="content-heading">We create immersive films that build worlds, take risks, and push you to <em>feel.</em></h2>
+    </div>
+</section>
+
+<!-- VFX Section -->
+<section class="section section-dark" id="vfx">
+    <div class="section-bg">
+        <div class="section-bg-media" id="vfxBg"></div>
+        <div class="section-bg-overlay overlay-heavy"></div>
+    </div>
+    <div class="section-content content-split">
+        <div class="content-label">VFX</div>
+        <h2 class="content-heading">We build illusions, explosions, magic, things you've never seen before.</h2>
+        <p class="content-body">In real life. In fake life. We are image makers.</p>
+        <div class="project-links">
+            <a href="#" class="project-link">
+                <span class="project-name">REEL</span>
+                <span class="project-arrow">&rarr;</span>
+            </a>
         </div>
     </div>
 </section>
 
-<!-- Philosophy Section -->
-<section class="about" style="background: #000000;">
-    <div class="container">
-        <div class="section-content">
-            <h2 class="section-title">Our Philosophy</h2>
-            
-            <div class="description">
-                <p class="description-text">
-                    <strong>Games should feel dangerous.</strong>
-                </p>
-                <p class="description-text">
-                    Not because of jump scares or gore, but because <span class="redacted">your choices have weight</span>.
-                    We believe the best horror comes from <span class="redacted">consequence</span>, not spectacle.
-                    From knowing that <span class="redacted">you can't undo</span> what you've done.
-                </p>
-                <p class="description-text">
-                    We build games where the AI doesn't guide you — it reacts to you.
-                    Where the world doesn't wait for you to figure things out.
-                    Where survival is earned, not guaranteed.
-                </p>
-                <p class="description-text" style="margin-top: 2rem; font-style: italic; opacity: 0.7;">
-                    "The tape is running. What you do next is up to you."
-                </p>
-            </div>
+<!-- About / Studio Section -->
+<section class="section section-studio" id="studio">
+    <div class="section-bg">
+        <div class="section-bg-media" id="studioBg"></div>
+        <div class="section-bg-overlay overlay-subtle"></div>
+    </div>
+    <div class="section-content content-centered">
+        <h2 class="studio-heading">Games should feel dangerous.</h2>
+        <p class="studio-body">Not because of jump scares or gore, but because your choices have weight. We believe the best experiences come from consequence, not spectacle.</p>
+        <div class="studio-cta">
+            <a href="{{ discord_invite }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Join Discord</a>
+            <a href="{{ url_for('raster') }}" class="btn btn-outline">Explore R.A.S.T.E.R.</a>
         </div>
     </div>
 </section>
-
-<!-- Gallery Section - Show R.A.S.T.E.R. Examples -->
-<section class="gallery">
-    <div class="container">
-        <h2 class="section-title">From R.A.S.T.E.R.</h2>
-        <p class="gallery-subtitle">Every frame AI-generated. Every playthrough unique.</p>
-        
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <div class="vhs-frame">
-                    <img src="{{ url_for('static', filename='images/examples/example1.gif') }}" alt="The facility appears abandoned" class="gallery-image" loading="lazy">
-                    <p class="gallery-caption">The facility appears abandoned.</p>
-                </div>
-            </div>
-            
-            <div class="gallery-item">
-                <div class="vhs-frame">
-                    <img src="{{ url_for('static', filename='images/examples/example2.gif') }}" alt="Something is moving behind the fence" class="gallery-image" loading="lazy">
-                    <p class="gallery-caption">Something is moving behind the fence.</p>
-                </div>
-            </div>
-            
-            <div class="gallery-item">
-                <div class="vhs-frame">
-                    <img src="{{ url_for('static', filename='images/examples/example3.gif') }}" alt="The guard's flashlight sweeps closer" class="gallery-image" loading="lazy">
-                    <p class="gallery-caption">The guard's flashlight sweeps closer.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- CTA Section -->
-<section class="cta-section">
-    <div class="container">
-        <div class="cta-content">
-            <h2 class="cta-title">Ready to start recording?</h2>
-            <p class="cta-description">
-                Join our Discord to play R.A.S.T.E.R.<br>
-                No install. No tutorial.<br>
-                Just the tape.
-            </p>
-            
-            <div class="cta-buttons">
-                <a href="{{ discord_invite }}" target="_blank" rel="noopener noreferrer" class="cta-button cta-primary cta-large">
-                    <span class="cta-icon">▶</span> JOIN DISCORD
-                </a>
-                
-                <a href="{{ url_for('raster') }}" class="cta-button cta-secondary">
-                    <span class="cta-icon">📼</span> ABOUT THE GAME
-                </a>
-            </div>
-            
-            <p class="cta-note">Free to play. Available now.</p>
-        </div>
-    </div>
-</section>
-
-<!-- Choice Details Modal -->
-<div id="choiceModal" class="modal">
-    <div class="modal-overlay"></div>
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3 id="modalTitle" class="modal-title"></h3>
-            <button class="modal-close" aria-label="Close">&times;</button>
-        </div>
-        <div class="modal-image-container">
-            <img id="modalImage" class="modal-image" src="" alt="">
-        </div>
-        <div class="modal-body">
-            <p id="modalDescription" class="modal-description"></p>
-        </div>
-        <div class="modal-footer">
-            <p class="modal-hint">Click anywhere to close</p>
-        </div>
-    </div>
-</div>
 
 {% endblock %}
